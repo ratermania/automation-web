@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Editing Automation Options</h2>
+<div mat-dialog-content>
+
+	<mat-form-field appearance="fill">
+		<mat-label>Base Interval (seconds)</mat-label>
+		<input type="number" matInput [(ngModel)]="automationOptions.baseInterval">
+	</mat-form-field>
+
+	<mat-form-field appearance="fill">
+		<mat-label>Maximum Failures</mat-label>
+		<input type="number" matInput [(ngModel)]="automationOptions.maxFailures">
+	</mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+	<button mat-flat-button color="primary" (click)="save()" cdkFocusInitial>OK</button>
+	<button mat-flat-button (click)="cancel()">Cancel</button>
+</div>

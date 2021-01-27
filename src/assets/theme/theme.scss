@@ -1,0 +1,5 @@
+@import 'green-blue.scss';
+
+@include mat-core();
+
+@include angular-material-theme($green-blue-dark-theme);

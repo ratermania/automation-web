@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Editing {{ job.name }}</h2>
+<div mat-dialog-content>
+	<mat-form-field appearance="fill">
+		<mat-label>Next Start Date</mat-label>
+		<input matInput [matDatepicker]="picker" [(ngModel)]="job.nextRunTime">
+		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+		<mat-datepicker #picker></mat-datepicker>
+	</mat-form-field>
+
+	<mat-form-field appearance="fill">
+		<mat-label>Interval (seconds)</mat-label>
+		<input type="number" matInput [(ngModel)]="job.interval">
+	</mat-form-field>
+
+	<mat-slide-toggle [(ngModel)]="job.isEnabled" color="primary">Enabled</mat-slide-toggle>
+</div>
+
+<div mat-dialog-actions>
+	<button mat-flat-button color="primary" (click)="save()" cdkFocusInitial>OK</button>
+	<button mat-flat-button (click)="cancel()">Cancel</button>
+</div>

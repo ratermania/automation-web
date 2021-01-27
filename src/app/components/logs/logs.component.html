@@ -1,0 +1,12 @@
+<div class="logs-container">
+	<table>
+		<tr><td colspan="2" class="log-message">Showing most recent {{ logs ? logs.length : '' }} entries (newest to oldest):</td></tr>
+		<tr *ngFor="let log of logs">
+			<td>
+				{{ log.timestamp | date:'yyyy-MM-dd hh:mm:ss' }}
+				<span [class]="log.logLevel.toLowerCase()">{{ log.logLevel }}</span>:
+			</td>
+			<td>{{ log.message }}</td>
+		</tr>
+	</table>
+</div>
