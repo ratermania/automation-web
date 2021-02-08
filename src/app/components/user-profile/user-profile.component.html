@@ -1,0 +1,15 @@
+<h2>User Profile</h2>
+
+<div class="kinda-mat-card">
+	<mat-form-field appearance="fill">
+		<mat-label>Email Address</mat-label>
+		<input matInput [(ngModel)]="user.username">
+	</mat-form-field>
+
+	<a mat-button color="primary" (click)="changePassword()">Change Password</a>
+
+	<div>
+		<button mat-raised-button color="primary" cdkFocusInitial (click)="save()">Save</button>
+		<a routerLink="/" routerLinkActive="active" mat-button>Cancel</a>
+	</div>
+</div>

@@ -1,26 +1,36 @@
-<mat-toolbar>
-	<button (click)="sidenav.toggle()" mat-icon-button aria-label="Navigation menu">
-		<mat-icon>menu</mat-icon>
-	</button>
-	<span>Automation Manager</span>
-	<span class="toolbar-spacer"></span>
-	<button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User actions menu">
-		<mat-icon>account_circle</mat-icon>
-	</button>
-	<mat-menu #userMenu>
-		<!-- <button mat-menu-item>Change Password</button> -->
-		<button mat-menu-item (click)="logout()"><mat-icon>login</mat-icon>Logout</button>
-	  </mat-menu>
-</mat-toolbar>
+<div *ngIf="user">
 
-<mat-sidenav-container class="example-container">
-	<mat-sidenav #sidenav mode="side" opened="true">
-		<app-navigation></app-navigation>
-	</mat-sidenav>
+	<mat-toolbar>
+		<button (click)="sidenav.toggle()" mat-icon-button aria-label="Navigation menu">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<span>Automation Manager</span>
+		<span class="toolbar-spacer"></span>
 
-	<mat-sidenav-content>
+		<button mat-button [matMenuTriggerFor]="userMenu" aria-label="User actions menu">
+			<mat-icon>account_circle</mat-icon>
+			<span style="display: inline-block; margin-left: 8px;">{{ user.username }}</span>
+		</button>
+		<mat-menu #userMenu xPosition="before">
+			<a routerLink="/user-profile" routerLinkActive="active" mat-menu-item>
+				<mat-icon>password</mat-icon>User Profile
+			</a>
+			<button mat-menu-item (click)="logout()">
+				<mat-icon>login</mat-icon>Logout
+			</button>
+		</mat-menu>
+	</mat-toolbar>
 
+	<mat-sidenav-container class="example-container">
+		<mat-sidenav #sidenav mode="side" opened="true">
+			<app-navigation></app-navigation>
+		</mat-sidenav>
 
-		<router-outlet></router-outlet>
-	</mat-sidenav-content>
-</mat-sidenav-container>
+		<mat-sidenav-content>
+			<div class="component-content">
+				<router-outlet></router-outlet>
+			</div>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
+
+</div>

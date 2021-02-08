@@ -14,7 +14,7 @@ export class AuthGuardService implements CanActivate {
 	constructor(private _userService: UserService, private _dialog: MatDialog) { }
 	
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-		if (this._userService.getUser().value == null) {
+		if (sessionStorage.getItem('token') == null) {
 			this._dialog.open(LoginComponent, {
 				disableClose: true
 			});

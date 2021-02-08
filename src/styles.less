@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+* {
+	box-sizing: border-box;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #000;}
 
@@ -22,15 +26,53 @@ nav {
 	}
 }
 
+h2 {
+	font-size: 18px !important;
+}
+
+.component-content {
+	padding:20px;
+}
+
+.component-header {
+	display: flex;
+	justify-content: space-between;
+
+	button {
+		margin-top: -6px;
+	}
+}
+
+.form {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-spread {
+	display: flex;
+	justify-content: space-between;
+}
+
+.kinda-mat-card {
+	padding: 20px;
+	background-color: rgb(66,66,66);
+}
+
 .toolbar-spacer {
 	flex: 1 1 auto;
 }
 
 .mat-table {
 	width: 100%;
+	margin-bottom: 20px;
 
 	th {
 		width: 33.3%;
+	}
+
+	.mat-tab-body {
+		padding: 20px 0;
 	}
 }
 
@@ -57,10 +99,6 @@ nav {
 
 .detail-container {
 	overflow: hidden;
-
-	.detail-content {
-		padding: 10px 0;
-	}
   }
 
 .mat-dialog-content {

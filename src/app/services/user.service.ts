@@ -2,6 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { environment } from "src/environments/environment";
+import { Login } from "../models/login.model";
+import { PasswordChange } from "../models/password-change.model";
 import { User } from "../models/user.model";
 
 @Injectable({
@@ -13,31 +16,48 @@ export class UserService {
 	constructor(private _http: HttpClient) { }
 
 	getUser(): BehaviorSubject<User> {
-		let sessionUser: string = sessionStorage.getItem('user');
-
-		if (this._user.value == null && sessionUser != null)
-		{
-			let user: User = JSON.parse(atob(sessionUser));
-
-			this._user.next(user);
+		if (!this._user.value?.username) {
+			const token: string = sessionStorage.getItem('token');
+			this.setUserFromToken(token);
 		}
 
 		return this._user;
 	}
 
-	login(user: User): Observable<any> {
-		this._user.next(user);
+	login(userLogin: Login): Observable<any> {
+		return this._http.post(`${environment.identityUrl}/users/login`, userLogin).pipe(
+			map((data: any) => {
+				sessionStorage.setItem('token', data.token);
 
-		return this._http.post('http://localhost:61616/users/login', null).pipe(
-			map(() => {
-				sessionStorage.setItem('user', btoa(JSON.stringify(user)));
-			}
-		));
+				this.setUserFromToken(data.token);
+			})
+		);
 	}
 
 	logout() {
 		sessionStorage.clear();
-
 		this._user.next(new User());
+	}
+
+	changePassword(passwordChange: PasswordChange): Observable<any> {
+		return this._http.put(`${environment.identityUrl}/users/password`, passwordChange);
+	}
+
+	update(user: User) {
+		return this._http.put(`${environment.identityUrl}/users`, user);
+	}
+
+	private setUserFromToken(token: string) {
+		if (!token) {
+			return;
+		}
+
+		const base64User: string = token.split('.')[1]
+			.replace('-', '+')
+			.replace('_', '/');
+
+		const user: User = JSON.parse(atob(base64User));
+
+		this._user.next(user);
 	}
 }

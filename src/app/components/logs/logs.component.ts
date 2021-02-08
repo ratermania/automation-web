@@ -15,7 +15,6 @@ export class LogsComponent implements OnInit {
 	constructor(private _logsService: LogsService) { }
 
 	ngOnInit() {
-
 		let jobObservable = this.job != null
 			? this._logsService.getByJobId(this.job.id)
 			: this._logsService.get();

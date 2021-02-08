@@ -1,4 +1,6 @@
+import { Server } from "./server.model";
+
 export class User {
 	public username: string;
-	public password: string;
+	public servers: Server[];
 }

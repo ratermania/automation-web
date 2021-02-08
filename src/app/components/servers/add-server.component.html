@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Add Server</h2>
+<div mat-dialog-content>
+	<mat-form-field appearance="fill">
+		<mat-label>Url</mat-label>
+		<input type="text" matInput [(ngModel)]="server.url">
+	</mat-form-field>
+	<mat-form-field appearance="fill">
+		<mat-label>Authentication Token</mat-label>
+		<input type="text" matInput [(ngModel)]="server.token">
+	</mat-form-field>
+	<mat-form-field appearance="fill">
+		<mat-label>Friendly Name (Optional)</mat-label>
+		<input type="text" matInput [(ngModel)]="server.friendlyName">
+	</mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+	<button mat-flat-button color="primary" (click)="save()" cdkFocusInitial>OK</button>
+	<button mat-flat-button (click)="cancel()">Cancel</button>
+</div>

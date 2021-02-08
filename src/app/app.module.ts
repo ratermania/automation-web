@@ -15,19 +15,27 @@ import { FormsModule } from '@angular/forms';
 import { EditJobComponent } from './components/jobs/edit-job.component';
 import { LogsComponent } from './components/logs/logs.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { AutomationComponent } from './components/automation/automation.component';
-import { EditAutomationComponent } from './components/automation/edit-automation.component';
+import { ServersComponent } from './components/servers/servers.component';
+import { EditServerComponent } from './components/servers/edit-server.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { PasswordChangeComponent } from './components/user-profile/password-change.component';
+import { AddServerComponent } from './components/servers/add-server.component';
+import { DeleteServerComponent } from './components/servers/delete-server.component';
 
 @NgModule({
   declarations: [
 	AppComponent,
-	EditAutomationComponent,
-	AutomationComponent,
+	AddServerComponent,
+	EditServerComponent,
+	ServersComponent,
 	EditJobComponent,
 	JobsComponent,
 	LoginComponent,
 	LogsComponent,
-	NavigationComponent
+	NavigationComponent,
+	UserProfileComponent,
+	PasswordChangeComponent,
+	DeleteServerComponent
   ],
   imports: [
     BrowserModule,
@@ -35,13 +43,14 @@ import { EditAutomationComponent } from './components/automation/edit-automation
 	BrowserAnimationsModule,
 	HttpClientModule,
 	FormsModule,
-
 	AngularMaterialModule,
   ],
   entryComponents: [
-	  EditAutomationComponent,
+	  AddServerComponent,
 	  EditJobComponent,
-	  LoginComponent
+	  LoginComponent,
+	  PasswordChangeComponent,
+	  DeleteServerComponent
   ],
   providers: [
 	{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

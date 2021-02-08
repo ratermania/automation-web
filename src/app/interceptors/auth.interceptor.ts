@@ -28,16 +28,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
 	private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
 
-		const user = this._userService.getUser().value;
+		const credentials: string = sessionStorage.getItem('token');
 
-		if (user != null) {
-			const credentials: string = btoa(`${user.username}:${user.password}`);
-
-			return request.clone({
-				headers: request.headers.set("Authorization", `Basic ${credentials}`)
-			});
-		}
-
-		return request;
+		return request.clone({
+			headers: request.headers.set("Authorization", `Bearer ${credentials}`)
+		});
 	}
 }
