@@ -1,5 +1,5 @@
-:host {
-	background-color: #000;
+.logs-container {
+	background-color: #222;
 	width: 100%;
 	display: block;
 	padding: 20px;
@@ -24,15 +24,17 @@
 
 table {
 	width: 100%;
+	table-layout: auto;
 }
 
 td {
 	vertical-align: text-top;
-
-	&:first-child {
-		width: 300px;
-	}
 }
+
+.fixed-width {
+	width: 180px;
+}
+
 
 .log-message {
 	text-align: left;

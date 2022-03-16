@@ -1,0 +1,56 @@
+.logs-container {
+  background-color: #222;
+  width: 100%;
+  display: block;
+  padding: 20px;
+  font-family: 'Roboto Mono';
+  overflow-y: scroll;
+  max-height: 250px;
+  margin-bottom: 20px;
+}
+.logs-container::-webkit-scrollbar {
+  width: 10px;
+}
+.logs-container::-webkit-scrollbar-track {
+  background-color: #111;
+}
+.logs-container::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: #444;
+}
+table {
+  width: 100%;
+  table-layout: auto;
+}
+td {
+  vertical-align: text-top;
+}
+.fixed-width {
+  width: 180px;
+}
+.log-message {
+  text-align: left;
+  font-weight: 400;
+  padding-bottom: 20px;
+}
+.information {
+  display: inline-block;
+  margin-left: 10px;
+  color: #0C0;
+}
+.warning {
+  display: inline-block;
+  margin-left: 10px;
+  color: #C60;
+}
+.error {
+  display: inline-block;
+  margin-left: 10px;
+  color: #C00;
+}
+.critical {
+  display: inline-block;
+  margin-left: 10px;
+  color: #F00;
+  font-weight: bold;
+}

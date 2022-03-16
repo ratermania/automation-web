@@ -4,7 +4,7 @@
 		<button (click)="sidenav.toggle()" mat-icon-button aria-label="Navigation menu">
 			<mat-icon>menu</mat-icon>
 		</button>
-		<span>Automation Manager</span>
+		<span>{{applicationTitle}}</span>
 		<span class="toolbar-spacer"></span>
 
 		<button mat-button [matMenuTriggerFor]="userMenu" aria-label="User actions menu">
@@ -13,7 +13,7 @@
 		</button>
 		<mat-menu #userMenu xPosition="before">
 			<a routerLink="/user-profile" routerLinkActive="active" mat-menu-item>
-				<mat-icon>password</mat-icon>User Profile
+				<mat-icon>manage_accounts</mat-icon>User Profile
 			</a>
 			<button mat-menu-item (click)="logout()">
 				<mat-icon>login</mat-icon>Logout

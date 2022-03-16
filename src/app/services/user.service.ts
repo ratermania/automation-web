@@ -15,7 +15,11 @@ export class UserService {
 
 	constructor(private _http: HttpClient) { }
 
-	getUser(): BehaviorSubject<User> {
+	getUsers(): Observable<User[]> {
+		return this._http.get<User[]>(`${environment.identityUrl}/users/`);
+	}
+
+	getUserFromToken(): BehaviorSubject<User> {
 		if (!this._user.value?.username) {
 			const token: string = sessionStorage.getItem('token');
 			this.setUserFromToken(token);

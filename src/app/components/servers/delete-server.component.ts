@@ -15,8 +15,7 @@ export class DeleteServerComponent {
 	constructor(@Inject(MAT_DIALOG_DATA) public server: Server, private _dialogRef: MatDialogRef<DeleteServerComponent>, private _serverService: ServerService, private _snackBar: MatSnackBar) { }
 
 	delete() {
-		if (this.serverName != this.server.friendlyName)
-		{
+		if (this.serverName != this.server.friendlyName) {
 			this._snackBar.open('The server name you entered is incorrect.', 'OK', {
 				duration: 10000,
 			});
@@ -24,13 +23,13 @@ export class DeleteServerComponent {
 			return;
 		}
 
-		this._serverService.deleteServer(this.server.id).subscribe(success => {
+		this._serverService.deleteServer(this.server.serverId).subscribe(success => {
 			this._dialogRef.close();
-			this._snackBar.open('Server removed successfully.', 'OK', {
+			this._snackBar.open('Server unlinked successfully.', 'OK', {
 				duration: 10000,
 			});
 		}, error => {
-			this._snackBar.open('An error occured removing the server.', 'OK', {
+			this._snackBar.open('An error occured unlinking the server.', 'OK', {
 				duration: 10000,
 			});
 		});

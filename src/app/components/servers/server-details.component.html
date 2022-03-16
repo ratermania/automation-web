@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ server.friendlyName }} Details</h2>
+<div mat-dialog-content>
+	<table *ngIf="automationOptions; else serverDown">
+		<tr><th>Base Interval</th></tr>
+		<tr><td>{{ automationOptions.baseInterval / 60 }} minutes</td></tr>
+
+		<tr><th>Maximum Job Failures</th></tr>
+		<tr><td>{{ automationOptions.maxFailures }}</td></tr>
+	</table>
+	
+	<ng-template #serverDown>
+		<table>
+			<tr><th>Error:</th></tr>
+			<tr><td>Could not get data for {{ server.friendlyName }} from {{ server.url }}. Make sure the server is online and that you entered the correct server settings.</td></tr>
+		</table>
+	</ng-template>
+</div>
+
+<div mat-dialog-actions>
+	<button mat-flat-button color="primary" (click)="close()" cdkFocusInitial>OK</button>
+</div>

@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { JobsComponent } from './components/jobs/jobs.component';
 
-import {MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule } from '@angular/material/dialog'
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
@@ -21,40 +21,51 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { PasswordChangeComponent } from './components/user-profile/password-change.component';
 import { AddServerComponent } from './components/servers/add-server.component';
 import { DeleteServerComponent } from './components/servers/delete-server.component';
+import { JobDetailsComponent } from './components/jobs/job-details.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ServerDetailsComponent } from './components/servers/server-details.component';
+import { UserListComponent } from './components/user-management/user-list.component';
 
 @NgModule({
-  declarations: [
-	AppComponent,
-	AddServerComponent,
-	EditServerComponent,
-	ServersComponent,
-	EditJobComponent,
-	JobsComponent,
-	LoginComponent,
-	LogsComponent,
-	NavigationComponent,
-	UserProfileComponent,
-	PasswordChangeComponent,
-	DeleteServerComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-	BrowserAnimationsModule,
-	HttpClientModule,
-	FormsModule,
-	AngularMaterialModule,
-  ],
-  entryComponents: [
-	  AddServerComponent,
-	  EditJobComponent,
-	  LoginComponent,
-	  PasswordChangeComponent,
-	  DeleteServerComponent
-  ],
-  providers: [
-	{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		AddServerComponent,
+		EditServerComponent,
+		ServersComponent,
+		EditJobComponent,
+		JobsComponent,
+		JobDetailsComponent,
+		LoginComponent,
+		LogsComponent,
+		NavigationComponent,
+		UserProfileComponent,
+		PasswordChangeComponent,
+		DeleteServerComponent,
+		ServerDetailsComponent,
+		UserListComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		HttpClientModule,
+		FormsModule,
+		AngularMaterialModule,
+		MatTooltipModule
+	],
+	entryComponents: [
+		AddServerComponent,
+		EditJobComponent,
+		JobDetailsComponent,
+		LoginComponent,
+		PasswordChangeComponent,
+		DeleteServerComponent,
+		EditServerComponent,
+		ServerDetailsComponent
+	],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

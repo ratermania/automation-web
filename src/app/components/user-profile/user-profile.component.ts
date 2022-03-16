@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
 	constructor(private _userService: UserService, private _dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
 	ngOnInit() {
-		this.user = {...this._userService.getUser().value};
+		this.user = { ...this._userService.getUserFromToken().value };
 	}
 
 	changePassword() {
@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit {
 
 	save() {
 		this._userService.update(this.user).subscribe(() => {
-			this._snackBar.open('User profile saved successfully.',  'OK', {
+			this._snackBar.open('User profile saved successfully.', 'OK', {
 				duration: 10000,
 			});
 		})

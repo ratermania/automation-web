@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: "http://localhost:61616",
-  identityUrl: "http://localhost:5000"
+  identityUrl: "http://localhost:5000",
+  applicationTitle: "Ratermania Automation"
 };
 
 /*

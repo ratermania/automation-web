@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { User } from './models/user.model';
 import { UserService } from './services/user.service';
 
@@ -12,11 +13,14 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
 
 	user: User;
+	applicationTitle: string;
 
 	constructor(private _userService: UserService, private _router: Router) { }
 
 	ngOnInit() {
-		this._userService.getUser().subscribe(user => {
+		this.applicationTitle = environment.applicationTitle;
+
+		this._userService.getUserFromToken().subscribe(user => {
 			if (user) {
 				this.user = user;
 			}

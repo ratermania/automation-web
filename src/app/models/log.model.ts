@@ -1,6 +1,6 @@
 export class Log {
-	public JobName: string;
-	public Message: string;
-	public LogLevel: string;
-	public Timestamp: Date;
+	public jobName: string;
+	public message: string;
+	public logLevel: string;
+	public timestamp: Date;
 }

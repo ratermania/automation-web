@@ -1,49 +1,43 @@
-<table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+<table mat-table [dataSource]="dataSource">
 	<ng-container matColumnDef="name">
 		<th mat-header-cell *matHeaderCellDef>Name</th>
-		<td mat-cell *matCellDef="let element"> {{ element.name }} </td>
-	</ng-container>
-
-	<ng-container matColumnDef="status">
-		<th mat-header-cell *matHeaderCellDef>Status</th>
-		<td mat-cell *matCellDef="let element">
-
-			<mat-chip-list>
-				<mat-chip color="warn" *ngIf="!element.isEnabled" selected>Disabled</mat-chip>
-				<mat-chip color="primary" *ngIf="element.isRunning" selected>Running</mat-chip>
-				<mat-chip color="accent" *ngIf="element.isEnabled && !element.isRunning" selected>Enabled</mat-chip>
-				
-				<mat-chip color="warn" *ngIf="element.failures > 0" selected>Failures: {{ element.failures }} </mat-chip>
-				<mat-chip *ngIf="element.failures == 0">Failures: 0</mat-chip>
-			</mat-chip-list>
-		</td>
+		<td mat-cell *matCellDef="let job">
+			<span (click)="viewDetails(job)">
+				<div *ngIf="!job.isEnabled && job.failures == 5" class="dot error" matTooltip="Error"></div>
+				<div *ngIf="!job.isEnabled && job.failures < 5" class="dot disabled" matTooltip="Disabled"></div>
+				<div *ngIf="job.isRunning" class="dot running" matTooltip="Running"></div>
+				<div *ngIf="job.isEnabled && !job.isRunning" class="dot enabled" matTooltip="Not Running"></div>
+			</span>
+			{{ job.name }}
 	</ng-container>
 
 	<ng-container matColumnDef="actions">
 		<th mat-header-cell *matHeaderCellDef>Actions</th>
 		<td mat-cell *matCellDef="let element">
-			<button mat-flat-button color="primary" *ngIf="!element.isRunning && element.isEnabled"
-				(click)="runJob($event, element.id)">Run</button>
-			<button mat-flat-button (click)="editJob($event, element)" color="primary">Edit</button>
+			<button mat-icon-button [matMenuTriggerFor]="jobActions">
+				<mat-icon>more_vert</mat-icon>
+			</button>
+			<mat-menu #jobActions>
+				<mat-menu-item><button mat-menu-item (click)="runJob(element.id)">
+						<mat-icon>play_arrow</mat-icon>Start
+					</button></mat-menu-item>
+				<mat-menu-item><button mat-menu-item (click)="viewDetails(element)">
+						<mat-icon>info</mat-icon>Details
+					</button></mat-menu-item>
+				<mat-menu-item><button mat-menu-item (click)="editJob(element)">
+						<mat-icon>settings</mat-icon>Settings
+					</button></mat-menu-item>
+			</mat-menu>
+			<!-- <button mat-flat-button color="primary" *ngIf="!element.isRunning && element.isEnabled"
+				(click)="runJob($event, element.id)">Run</button> -->
 		</td>
 	</ng-container>
 
-	<ng-container matColumnDef="job-detail">
-		<td mat-cell *matCellDef="let element" [attr.colspan]="columns.length">
-			<div class="detail-container" [@detailExpand]="element == jobDetail ? 'expanded' : 'collapsed'">
-				<div class="detail-content">
-					<app-logs [job]="element"></app-logs>
-				</div>
-			</div>
-		</td>
-	</ng-container>
+
 
 	<tr mat-header-row *matHeaderRowDef="columns"></tr>
 
-	<tr mat-row *matRowDef="let element; columns: columns;" class="overview-row"
-		[class.example-expanded-row]="jobDetail === element"
-		(click)="jobDetail = jobDetail === element ? null : element"> </tr>
+	<tr mat-row *matRowDef="let element; columns: columns;"></tr>
 
-	<tr mat-row *matRowDef="let row; columns: ['job-detail']" class="detail-row"></tr>
 
 </table>

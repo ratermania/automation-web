@@ -1,53 +1,54 @@
 import { animate, state, style, transition, trigger } from "@angular/animations";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Observable } from "rxjs";
 import { Job } from "src/app/models/job.model";
+import { Server } from "src/app/models/server.model";
 import { JobsService } from "src/app/services/jobs.service";
 import { EditJobComponent } from "./edit-job.component";
+import { JobDetailsComponent } from "./job-details.component";
 
 @Component({
 	selector: 'app-jobs',
 	templateUrl: './jobs.component.html',
-	animations: [
-		trigger('detailExpand', [
-			state('collapsed', style({ height: '0px', minHeight: '0' })),
-			state('expanded', style({ height: '*' })),
-			transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-		]),
-	]
+	styleUrls: ['./jobs.component.less'],
 })
 export class JobsComponent implements OnInit {
 
-	columns: string[] = ['name', 'status', 'actions'];
+	@Input() server: Server;
+	columns: string[] = ['name', 'actions'];
 	dataSource: Observable<Job[]>;
 	jobDetail: Job | null;
 
-	constructor(private _jobsService: JobsService, private _dialog: MatDialog) { }
+	constructor(private _jobsService: JobsService, private _dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
 	ngOnInit() {
-		this.getJobs()
+		this._jobsService.getJobs(this.server.url).toPromise();
+
+		this.dataSource = this._jobsService.jobs;
 	}
 
-	getJobs() {
-		this.dataSource = this._jobsService.get();
-	}
-
-	runJob(event: Event, id: number) {
-		event.stopPropagation();
-
-		this._jobsService.run(id).subscribe(() => {
-			setTimeout(() => {
-				this.getJobs();
-			}, 100);
+	runJob(id: number) {
+		this._jobsService.run(this.server.url, id).subscribe(() => {
+			this._snackBar.open('Job started successfully.', 'OK', {
+				duration: 10000,
+			});
 		});
 	}
 
-	editJob(event: Event, job: Job) {
-		event.stopPropagation();
-
-		this._dialog.open(EditJobComponent, {
+	viewDetails(job: Job) {
+		this._dialog.open(JobDetailsComponent, {
 			data: { ...job }
+		});
+	}
+
+	editJob(job: Job) {
+		this._dialog.open(EditJobComponent, {
+			data: {
+				serverUrl: this.server.url,
+				job: { ...job }
+			}
 		});
 	}
 }

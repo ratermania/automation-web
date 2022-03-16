@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ job.name }} Details</h2>
+<div mat-dialog-content>
+	<table>
+
+		<tr><th>Status</th></tr>
+		<tr><td>
+			<span *ngIf="!job.isEnabled">Disabled,</span>
+			<span *ngIf="job.isRunning">Running,</span>
+			<span *ngIf="job.isEnabled && !job.isRunning">Enabled,</span>
+			{{ job.failures }} failure<span *ngIf="job.failures != 1">s</span>
+		</td></tr>
+
+		<tr><th>Interval</th></tr>
+		<tr><td>{{job.interval / 60 }} minutes</td></tr>
+
+		<tr><th>Next Scheduled Start</th></tr>
+		<tr><td>{{ job.nextRunTime | date:'medium' }}</td></tr>		
+		
+		<tr><th>Last Successful Completion</th></tr>
+		<tr><td>{{ job.lastRunTime | date:'medium' }}</td></tr>
+	</table>
+</div>
+
+<div mat-dialog-actions>
+	<button mat-flat-button color="primary" (click)="close()" cdkFocusInitial>OK</button>
+</div>

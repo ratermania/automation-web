@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, Input, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Job } from "src/app/models/job.model";
+import { Server } from "src/app/models/server.model";
 import { JobsService } from "src/app/services/jobs.service";
 
 @Component({
@@ -10,13 +11,17 @@ import { JobsService } from "src/app/services/jobs.service";
 })
 export class EditJobComponent {
 
-	constructor(@Inject(MAT_DIALOG_DATA) public job: Job, private _jobsService: JobsService, private _snackBar: MatSnackBar, private _dialogRef: MatDialogRef<EditJobComponent>) { }
+	job: Job;
+
+	constructor(@Inject(MAT_DIALOG_DATA) public data: { serverUrl: string, job: Job }, private _jobsService: JobsService, private _snackBar: MatSnackBar, private _dialogRef: MatDialogRef<EditJobComponent>) {
+		this.job = data.job;
+	}
 
 	save() {
-		this._jobsService.save(this.job).subscribe(success => {
+		this._jobsService.save(this.data.serverUrl, this.job).subscribe(success => {
 			this._snackBar.dismiss();
 			this._dialogRef.close();
-			this._snackBar.open('Job saved successfully.',  'OK', {
+			this._snackBar.open('Job saved successfully.', 'OK', {
 				duration: 10000,
 			});
 		}, error => {

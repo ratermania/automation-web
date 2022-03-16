@@ -14,10 +14,9 @@ import { Server } from "src/app/models/server.model";
 })
 export class EditServerComponent implements OnInit {
 
-	@Input() server: Server;
 	automationOptions: AutomationOptions = new AutomationOptions();
 
-	constructor(private _serverService: ServerService, private _snackBar: MatSnackBar, private _matDialog: MatDialog) { }
+	constructor(@Inject(MAT_DIALOG_DATA) public server: Server, private _serverService: ServerService, private _snackBar: MatSnackBar, private _matDialogRef: MatDialogRef<EditServerComponent>) { }
 
 	ngOnInit() {
 		this._serverService.getOptions(this.server.url).subscribe(options => {
@@ -25,21 +24,20 @@ export class EditServerComponent implements OnInit {
 		});
 	}
 
-	delete() {
-		this._matDialog.open(DeleteServerComponent, {
-			data: this.server
-		});
-	}
-
 	save() {
 		this._serverService.saveOptions(this.automationOptions).subscribe(success => {
-			this._snackBar.open('Automation options saved successfully.',  'OK', {
+			this._matDialogRef.close();
+			this._snackBar.open('Server settings saved successfully.',  'OK', {
 				duration: 10000,
 			});
 		}, error => {
-			this._snackBar.open('An error occurred while saving automation options.', 'OK', {
+			this._snackBar.open('An error occurred while saving the server settings.', 'OK', {
 				duration: 10000,
 			});
 		});
+	}
+
+	cancel() {
+		this._matDialogRef.close();
 	}
 }
