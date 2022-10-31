@@ -1,8 +1,8 @@
 <div class="component-header">
 	<h2>Automation Servers</h2>
-	<button mat-mini-fab color="primary" (click)="addServer()">
+	<!-- <button mat-mini-fab color="primary" (click)="addServer()">
 		<mat-icon>add</mat-icon>
-	</button>
+	</button> -->
 </div>
 
 <div *ngIf="dataSource.value?.length > 0; else noServers">
@@ -27,12 +27,12 @@
 					<mat-menu-item><button mat-menu-item (click)="viewDetails(element)">
 							<mat-icon>info</mat-icon>Details
 						</button></mat-menu-item>
-					<mat-menu-item><button mat-menu-item (click)="editServer(element)">
+					<!-- <mat-menu-item><button mat-menu-item (click)="editServer(element)">
 							<mat-icon>settings</mat-icon>Settings
 						</button></mat-menu-item>
 					<mat-menu-item><button mat-menu-item (click)="deleteServer(element)">
 							<mat-icon>link_off</mat-icon>Unlink
-						</button></mat-menu-item>
+						</button></mat-menu-item> -->
 				</mat-menu>
 			</td>
 		</ng-container>
